@@ -16,9 +16,10 @@ public class PathBuilder implements ShapeBuilder<Path> {
     @Override
     public Path build() {
         Path path = new Path();
-        path.getElements().add(new MoveTo(40,40));
-        path.getElements().add(new CubicCurveTo(380, 0, 380, 120, 200, 120));
-        path.getElements().add(new CubicCurveTo(0, 120, 0, 240, 380, 240));
+        path.getElements().add(new MoveTo(400,320));
+//        path.getElements().add(new CubicCurveTo(380, 0, 380, 120, 200, 120));
+        path.getElements().add(new CubicCurveTo(100, 120, 0, 1000, 360, 360));
+        path.getElements().add(new CubicCurveTo(100, 120, 0, 1000, 360, 360));
         return path;
     }
 }
