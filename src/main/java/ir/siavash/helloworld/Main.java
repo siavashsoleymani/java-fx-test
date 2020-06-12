@@ -3,6 +3,8 @@ package ir.siavash.helloworld;
 import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
 import ir.siavash.helloworld.config.RabbitMqConfig;
+import ir.siavash.helloworld.gateway.Publisher;
+import ir.siavash.helloworld.gateway.TCPPublisher;
 import ir.siavash.helloworld.view.ViewBuilder;
 import javafx.application.Application;
 import javafx.beans.binding.BooleanBinding;
@@ -25,12 +27,8 @@ import java.util.concurrent.TimeoutException;
 
 public class Main extends Application {
 
-    private final Channel channel = RabbitMqConfig.getChannel();
-    private static final String exchangeName = "pickapp-exchange";
-    private static final String speedRoutingKey = "pickapp-speed-routingkey";
-    private static final String directRoutingKey = "pickapp-direct-routingkey";
-    private static final String messageExpiration = "250";
     private Executor executor = Executors.newFixedThreadPool(2);
+    private Publisher publisher = new TCPPublisher("snapptix.ir", 8081);
 
     public Main() throws IOException, TimeoutException {
     }
@@ -41,21 +39,17 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        channel.exchangeDeclare(exchangeName, "direct", true);
         Scene scene = ViewBuilder.build(primaryStage);
         scene.addEventHandler(KeyEvent.KEY_PRESSED, (key) -> ViewBuilder.buttons.stream()
                 .filter(btn -> btn.getText().equalsIgnoreCase(key.getText()))
                 .map(btn -> {
-                    byte[] messageBodyBytes = key.getText().getBytes();
                     if (key.getText().equalsIgnoreCase("w")
                             || key.getText().equalsIgnoreCase("s")
                             || key.getText().equalsIgnoreCase(" ")) {
                         executor.execute(() -> {
                             System.out.println(key.getText());
                             try {
-                                channel.basicPublish(exchangeName, speedRoutingKey, new AMQP.BasicProperties.Builder()
-                                        .expiration(messageExpiration)
-                                        .build(), messageBodyBytes);
+                                publisher.publishSpeedCommand(key.getText());
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
@@ -66,9 +60,7 @@ public class Main extends Application {
                         executor.execute(() -> {
                             System.out.println(key.getText());
                             try {
-                                channel.basicPublish(exchangeName, directRoutingKey, new AMQP.BasicProperties.Builder()
-                                        .expiration(messageExpiration)
-                                        .build(), messageBodyBytes);
+                                publisher.publishDirectCommand(key.getText());
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
@@ -85,9 +77,7 @@ public class Main extends Application {
                         if (btn.getText().equalsIgnoreCase("a")
                                 || btn.getText().equalsIgnoreCase("d")
                                 || btn.getText().equalsIgnoreCase("f")) {
-                            channel.basicPublish(exchangeName, directRoutingKey, new AMQP.BasicProperties.Builder()
-                                    .expiration(messageExpiration)
-                                    .build(), "f".getBytes());
+//                            publisher.publishDirectCommand("f");
                         }
                         ViewBuilder.changeColor(btn, Color.GRAY);
                     } catch (Exception e) {
