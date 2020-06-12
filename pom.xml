@@ -23,8 +23,18 @@
 		</dependency>
 		<dependency>
 			<groupId>org.openjfx</groupId>
-			<artifactId>javafx-graphics </artifactId>
+			<artifactId>javafx-graphics</artifactId>
 			<version>${javafx.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openjfx</groupId>
+			<artifactId>javafx-web</artifactId>
+			<version>${javafx.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.rabbitmq</groupId>
+			<artifactId>amqp-client</artifactId>
+			<version>5.9.0</version>
 		</dependency>
 	</dependencies>
 
@@ -86,7 +96,7 @@
 
 									<!-- add the main class -->
 									<arg value="--main-class" />
-									<arg value="ir.siavash.helloworld.HelloWorld" />
+									<arg value="ir.siavash.helloworld.Main" />
 
 									<!-- add the version number -->
 									<arg value="--module-version" />
@@ -104,7 +114,7 @@
 						</configuration>
 					</execution>
 
-					<!-- create runimage with a minimal JRE and all required modules and 
+					<!-- create runimage with a minimal JRE and all required modules and
 						a launcher "bin/Hello World" in the "runimage" folder -->
 					<!-- see https://maven.apache.org/plugins/maven-jlink-plugin -->
 					<execution>
