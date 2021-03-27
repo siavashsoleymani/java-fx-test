@@ -2,19 +2,19 @@
 <project version="4">
   <component name="RemoteRepositoriesConfiguration">
     <remote-repository>
-      <option name="id" value="public" />
-      <option name="name" value="libs-snapshot" />
-      <option name="url" value="http://nexus3.snpb.app:8081/repository/maven-public/" />
-    </remote-repository>
-    <remote-repository>
-      <option name="id" value="central" />
-      <option name="name" value="Central Repository" />
-      <option name="url" value="http://nexus3.snpb.app:8081/repository/maven-public/" />
-    </remote-repository>
-    <remote-repository>
       <option name="id" value="central" />
       <option name="name" value="Central Repository" />
       <option name="url" value="https://repo.maven.apache.org/maven2" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="central" />
+      <option name="name" value="Central Repository" />
+      <option name="url" value="http://nexus3.snpb.app:8081/repository/maven-public/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="com.teamdev" />
+      <option name="name" value="com.teamdev" />
+      <option name="url" value="http://maven.teamdev.com/repository/products" />
     </remote-repository>
     <remote-repository>
       <option name="id" value="central" />
@@ -27,9 +27,9 @@
       <option name="url" value="https://repository.jboss.org/nexus/content/repositories/public/" />
     </remote-repository>
     <remote-repository>
-      <option name="id" value="com.teamdev" />
-      <option name="name" value="com.teamdev" />
-      <option name="url" value="http://maven.teamdev.com/repository/products" />
+      <option name="id" value="public" />
+      <option name="name" value="libs-snapshot" />
+      <option name="url" value="http://nexus3.snpb.app:8081/repository/maven-public/" />
     </remote-repository>
   </component>
 </project>

@@ -28,7 +28,7 @@ import java.util.concurrent.TimeoutException;
 public class Main extends Application {
 
     private Executor executor = Executors.newFixedThreadPool(2);
-    private Publisher publisher = new TCPPublisher("snapptix.ir", 8081);
+    private Publisher publisher = new TCPPublisher("snapptix.ir", 8080);
 
     public Main() throws IOException, TimeoutException {
     }
